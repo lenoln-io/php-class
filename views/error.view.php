@@ -2,12 +2,12 @@
 
 require 'partials/head.php';
 require 'partials/navbar.php';
-require 'partials/header.php';
 
 ?>
 <main>
+    <h1 class="text-2xl my-[24px] text-center font-bold"><?= "Code $code | $message" ?></h1>
     <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 text-center">
-        <a href="/home" class="underline">Take me back home!</a>
+        <a href="/" class="underline">Take me back home!</a>
     </div>
 </main>
 
