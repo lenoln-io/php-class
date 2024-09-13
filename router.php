@@ -1,15 +1,44 @@
 <?php
 
-$page = $_SERVER['REQUEST_URI'];
+$uri = parse_url($_SERVER['REQUEST_URI'])['path'];
 
-$routes = [
-    '/' => 'controllers/home.php',
-    '/about' => 'controllers/about.php',
-    '/contact' => 'controllers/contact.php',
+$pages = [
+    '/' => [
+        'title' => 'Home',
+        'path' => 'controllers/home.php'
+    ],
+    '/about' => [
+        'title' => "About Us!",
+         'path' => 'controllers/about.php',
+    ],
+    '/contact' =>  [
+        'title' => 'Contact Us!',
+        'path' =>   'controllers/contact.php',
+    ],
+    '/notes' => [
+        'title' => 'Notes',
+        'path' => 'controllers/notes/read.php',
+    ],
+    '/note/' => [
+        'title' => 'My Note',
+        'path' => 'controllers/notes/note.php',
+    ]
 ];
 
-if(array_key_exists($page, $routes)) {
-    include $routes[$page];
-} else {
-    abort();
+$route = $pages[$uri];
+
+$pageExists = array_key_exists($uri, $pages);
+
+accessRoute($pageExists, $route);
+
+function accessRoute($pageExists, $route)
+{
+    if($pageExists) {
+        $title = $route['title'];
+        include $route['path'];
+    } else {
+        abort();
+    }
 }
+
+
