@@ -20,3 +20,13 @@ function abort($code = Response::NOT_FOUND){
     require 'controllers/errors/'.$code.'.php';
     die();
 }
+
+function authorization($condition, $status = Response::FORBIDDEN){
+    if(! $condition){
+        abort($status);
+    }
+}
+
+function base_path($path){
+    return BASE_PATH.$path;
+}

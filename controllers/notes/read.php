@@ -1,12 +1,14 @@
 <?php
-
-$config = require 'config.php';
+$config = require base_path('config.php');
 
 $db = new Database($config);
 
-$currentUser = 1;
-$notes = $db->query("SELECT * FROM `notes` WHERE user_id = :id", [
-    'id' => $currentUser
-    ])->get();
+$id = $_GET['id'];
 
-require 'views/notes/read.view.php';
+$note = $db->query("SELECT * FROM `notes` WHERE id = :id", [
+    'id' => $id
+])->findOneOrFail();
+
+authorization($note['user_id'] === $config['currentUser']);
+
+require base_path('views/notes/read.view.php');
