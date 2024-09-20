@@ -12,10 +12,12 @@ return [
         'title' => 'Contact Us!',
         'path' =>   'controllers/contact.php',
     ],
+
     '/notes' => [
         'title' => 'Notes',
         'path' => 'controllers/notes/index.php',
     ],
+
     '/note' => [
         'title' => 'My Note',
         'path' => 'controllers/notes/read.php',
@@ -23,5 +25,10 @@ return [
     '/note/new' => [
         'title' => 'Create a Note',
         'path' => 'controllers/notes/create.php',
+    ],
+    '/note/destroy' => [
+        'title' => 'Delete Note',
+        'path' => 'controllers/notes/destroy.php',
     ]
+
 ];

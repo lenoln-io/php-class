@@ -1,7 +1,14 @@
 <?php
 const BASE_PATH = __DIR__.'/../';
 
-require BASE_PATH.'functions.php';
+function base_path($path): string
+{
+    return BASE_PATH.$path;
+}
 
-require base_path('Database.php');
+spl_autoload_register(function (string $class) {
+    require str_replace('\\','/', base_path("{$class}.php"));
+});
+
+require base_path('functions.php');
 require base_path('router.php');

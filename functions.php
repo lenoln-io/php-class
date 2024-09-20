@@ -1,5 +1,6 @@
 <?php
-require 'Response.php';
+
+use Core\Response;
 
 function dd($val)
 {
@@ -27,6 +28,7 @@ function authorization($condition, $status = Response::FORBIDDEN){
     }
 }
 
-function base_path($path){
-    return BASE_PATH.$path;
+function view($path, $attributes = [])
+{
+
 }

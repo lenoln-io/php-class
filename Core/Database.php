@@ -1,5 +1,10 @@
 <?php
 
+namespace Core;
+
+use PDO;
+use PDOException;
+
 class Database
 {
 
@@ -11,7 +16,7 @@ class Database
         $type = $config['dbms'];
         $options = $config['options'];
 
-        $dsn = http_build_query($config['config'],'',';');
+        $dsn = http_build_query($config['config'], '', ';');
 
         try {
             $this->connection = new PDO("{$type}:{$dsn}", $config['auth']['username'], $config['auth']['password'], $options);
@@ -20,25 +25,29 @@ class Database
         }
     }
 
-    public function query($sql, $args = []){
-        $this->query= $this->connection->prepare($sql);
+    public function query($sql, $args = []): Database
+    {
+        $this->query = $this->connection->prepare($sql);
         $this->query->execute($args);
         return $this;
     }
 
-    private function findOne(){
+    private function findOne()
+    {
         return $this->query->fetch();
     }
 
-    public function findOneOrFail(){
+    public function findOneOrFail()
+    {
         $result = $this->findOne();
-        if(! $result){
+        if (!$result) {
             abort();
         }
         return $result;
     }
 
-    public function getAll(){
+    public function getAll()
+    {
         return $this->query->fetchAll();
     }
 }

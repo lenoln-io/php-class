@@ -1,5 +1,7 @@
 <?php
-require base_path('Validator.php');
+
+use Core\Database;
+use Core\Validator;
 
 $config = require base_path('config.php');
 
@@ -18,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'body_note' => $_POST['body_note'],
             'user_id' => $config['currentUser']
         ]);
-        $_POST['body_note'] = null;
+        header('Location: /notes');
     }
 }
 
