@@ -8,7 +8,6 @@ $config = require base_path('config.php');
 $db = new Database($config);
 
 $errors = [];
-$id = $_POST['id'];
 
 if(Validator::validateNote($_POST['body_note'], 1, 1000)) {
     $errors['error'] = 'Description cannot be empty neither longer than 1000 characters';
@@ -16,10 +15,11 @@ if(Validator::validateNote($_POST['body_note'], 1, 1000)) {
 }
 
 if (empty($errors)) {
-    $db->query('UPDATE `notes` SET body_note = :body_note WHERE id = :id', [
+    $db->query('INSERT INTO notes (body_note, user_id) VALUES (:body_note, :user_id)', [
         'body_note' => $_POST['body_note'],
-        'id' => $id
+        'user_id' => $config['currentUser']
     ]);
+    header('Location: /notes');
+    exit();
 }
-header('Location: /notes');
-die();
+
