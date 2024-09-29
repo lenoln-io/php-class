@@ -1,11 +1,10 @@
 <?php
 
-use Core\Database;
+use Core\App;
 use Core\Validator;
+use database\Database;
 
-$config = require base_path('config.php');
-
-$db = new Database($config);
+$db = App::resolve(Database::class);
 
 $errors = [];
 $id = $_POST['id'];
@@ -15,11 +14,11 @@ if(Validator::validateNote($_POST['body_note'], 1, 1000)) {
     return require base_path('views/notes/create.view.php');
 }
 
-if (empty($errors)) {
-    $db->query('UPDATE `notes` SET body_note = :body_note WHERE id = :id', [
-        'body_note' => $_POST['body_note'],
-        'id' => $id
-    ]);
-}
+$db->update('notes')
+    ->set(['body_note' => $_POST['body_note']])
+    ->where('id', $id)
+    ->execute();
+
 header('Location: /notes');
+
 die();

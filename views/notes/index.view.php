@@ -38,6 +38,7 @@ require base_path("views/partials/navbar.php");
                         <td class="px-6 py-2 whitespace-nowrap">
                             <div class="text-md text-gray-900">
                                 <?php
+                                echo $note['id'].' - ';
                                 $maxLength = 100;
                                 $text = htmlspecialchars($note['body_note']);
                                 if (strlen($text) > $maxLength) {
@@ -74,7 +75,6 @@ require base_path("views/partials/navbar.php");
                                 <button formaction="/note/edit" value="GET" name="__method"
                                         class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-[16px] w-10"
                                    data-id="12">
-                                    <input type="hidden" name="id" value="<?= $note['id']?>">
                                     <svg data-id="13" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                          viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                          stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">

@@ -9,6 +9,7 @@ spl_autoload_register(function (string $class) {
     require str_replace('\\','/', base_path("{$class}.php"));
 });
 require base_path('functions.php');
+require base_path('bootstrap.php');
 
 $router = new Router();
 

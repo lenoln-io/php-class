@@ -1,10 +1,11 @@
 <?php
 
-use Core\Database;
+use Core\App;
+use database\Database;
 
 $config = require base_path('config.php');
 
-$db = new Database($config);
+$db = App::resolve(Database::class);
 
 $id = $_GET['id'];
 

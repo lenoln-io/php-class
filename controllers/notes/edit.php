@@ -1,21 +1,23 @@
 <?php
 
-use Core\Database;
+use Core\App;
+use database\Database;
 
 $config = require base_path('config.php');
 
-$db = new Database($config);
+$db = App::resolve(Database::class);
 
 $id = $_POST['id'];
 
-$note = $db->query("SELECT * FROM `notes` WHERE id = :id", [
-    'id' => $id
-])->findOneOrFail();
+$note = $db->select()
+        ->from(['notes'])
+        ->where('id', $id)
+        ->execute()
+        ->findOneOrFail();
 
 if (empty($note)) {
     abort();
 }
-
 $_POST['body_note'] = $note['body_note'];
 
 authorization($note['user_id'] === $config['currentUser']);

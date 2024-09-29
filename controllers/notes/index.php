@@ -1,17 +1,16 @@
 <?php
 
-use Core\Database;
+use Core\App;
+use database\Database;
 
 $config = require base_path('config.php');
 
-$db = new Database($config);
+$db = App::resolve(Database::class);
 
-$notes = $db->query("SELECT * FROM `notes` WHERE user_id = :id", [
-    'id' => $config['currentUser']
-    ])->getAll();
-
-/*if($_SERVER["REQUEST_METHOD"] === "POST") {
-    dd($_SERVER["REQUEST_METHOD"]);
-}*/
+$notes = $db->select()
+    ->from(['notes'])
+    ->where('user_id', $config['currentUser'])
+    ->execute()
+    ->getAll();
 
 require base_path('views/notes/index.view.php');
