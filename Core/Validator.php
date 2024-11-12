@@ -4,7 +4,7 @@ namespace Core;
 
 class Validator
 {
-    public static function validateNote($string, $min = 1, $max = INF): bool
+    public static function validateString($string, $min = 1, $max = INF): bool
     {
         $text = strlen(trim($string));
 

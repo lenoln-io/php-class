@@ -1,25 +1,19 @@
 <?php
 
-use Core\App;
-use database\Database;
-
-$config = require base_path('config.php');
-
-$db = App::resolve(Database::class);
-
 $id = $_POST['id'];
 
-$note = $db->select()
-        ->from(['notes'])
-        ->where('id', $id)
-        ->execute()
-        ->findOneOrFail();
+$note = $database->query(
+    sql: 'SELECT * FROM notes WHERE id = ?',
+    class: Notes::class,
+    params: [$id]
+)->findOneOrFail();
 
 if (empty($note)) {
     abort();
 }
-$_POST['body_note'] = $note['body_note'];
 
-authorization($note['user_id'] === $config['currentUser']);
+$_POST['body_note'] = $note->getBodyNote();
 
-require base_path('views/notes/create.view.php');
+authorization($note->getUserId() === $_SESSION['auth']->getId());
+
+view('notes/create', compact('note'));

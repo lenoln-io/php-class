@@ -2,6 +2,8 @@
 
 namespace Core;
 
+use Database\Database;
+
 class Router
 {
     private $routes = [];
@@ -9,7 +11,7 @@ class Router
     protected function add($uri, $title, $controller, $method)
     {
         $this->routes[] = compact('uri', 'title', 'controller', 'method');
-        /* resultado da função compact
+        /* resultado da função compact:
             $this->routes[] = [
                 'uri' => $uri,
                 'title' => $title,
@@ -49,24 +51,17 @@ class Router
     {
         foreach ($this->routes as $route) {
             if ($route['uri'] === $uri && $route['method'] === $method) {
-                $title = $route['title'];
+
+                $config = require base_path('config.php');
+                $database = new Database($config);
+
                 return require base_path($route['controller']);
             }
         }
 
         abort();
-        return false;
     }
 }
-/*
-$uri = parse_url($_SERVER['REQUEST_URI'])['path'];
 
-$pages = require 'routes.php';
-
-$route = $pages[$uri];
-
-accessRoute($pageExists, $route);
-
-*/
 
 

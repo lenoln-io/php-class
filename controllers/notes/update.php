@@ -1,24 +1,20 @@
 <?php
 
-use Core\App;
 use Core\Validator;
-use database\Database;
-
-$db = App::resolve(Database::class);
 
 $errors = [];
 $id = $_POST['id'];
 
-if(Validator::validateNote($_POST['body_note'], 1, 1000)) {
+if (Validator::validateString($_POST['body_note'], 1, 1000)) {
     $errors['error'] = 'Description cannot be empty neither longer than 1000 characters';
-    return require base_path('views/notes/create.view.php');
+    view('notes/create', compact($errors));
 }
 
-$db->update('notes')
-    ->set(['body_note' => $_POST['body_note']])
-    ->where('id', $id)
-    ->execute();
+$database->query(
+    sql: 'UPDATE notes SET body_note = ? WHERE id = ?',
+    params: [
+        $_POST['body_note'], $id
+    ]);
 
 header('Location: /notes');
-
 die();

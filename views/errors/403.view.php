@@ -1,11 +1,3 @@
-<?php
-$dir = __DIR__.'/../partials';
-
-require "{$dir}/head.php";
-require "{$dir}/navbar.php";
-
-?>
-
 <main class="grid min-h-full place-items-center bg-white px-6 py-24 sm:py-32 lg:px-8">
     <div class="text-center">
         <p class="text-base font-semibold text-indigo-600">403 | Forbidden</p>
@@ -20,5 +12,3 @@ require "{$dir}/navbar.php";
         </div>
     </div>
 </main>
-
-<?php require "{$dir}/foot.php" ?>

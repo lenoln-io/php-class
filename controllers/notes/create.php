@@ -1,3 +1,4 @@
 <?php
 
-require base_path('views/notes/create.view.php');
+
+view('notes/create');

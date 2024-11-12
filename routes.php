@@ -1,5 +1,6 @@
 <?php
 
+
 $router->get('/','Home','controllers/home.php');
 $router->get('/about','About us!','controllers/about.php');
 $router->get('/contact','Contact us!','controllers/contact.php');
@@ -12,3 +13,11 @@ $router->get('/note/edit','Edit a note','controllers/notes/edit.php');
 $router->post('/notes','Stored','controllers/notes/store.php');
 $router->delete('/notes','Deleted','controllers/notes/destroy.php');
 $router->patch('/notes','Updated','controllers/notes/update.php');
+
+$router->get('/register', 'Register', 'controllers/registration/create.php');
+$router->post('/register', 'Registered', 'controllers/registration/store.php');
+
+$router->get('/login', 'Login', 'controllers/sessions/create.php');
+$router->post('/login', 'Logged in', 'controllers/sessions/store.php');
+
+$router->delete('/logout', 'Logged out', 'controllers/sessions/destroy.php');

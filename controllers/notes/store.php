@@ -1,24 +1,22 @@
 <?php
 
-use Core\App;
 use Core\Validator;
-use database\Database;
-
-$config = require base_path('config.php');
-
-$db = App::resolve(Database::class);
 
 $errors = [];
 
-if(Validator::validateNote($_POST['body_note'], 1, 1000)) {
+if (Validator::validateString($_POST['body_note'], 1, 1000)) {
     $errors['error'] = 'Description cannot be empty neither longer than 1000 characters';
-    return require base_path('views/notes/create.view.php');
+    view('notes/create', compact($errors));
+    exit();
 }
 
 if (empty($errors)) {
-    $db->insertInto('notes', ['body_note', 'user_id'])
-        ->values([$_POST['body_note'],$config['currentUser']])
-        ->execute();
+    $database->query(
+        sql: 'INSERT INTO notes (body_note, user_id) VALUES (:body_note, :user_id)',
+        params: [
+            'body_note' => $_POST['body_note'],
+            'user_id' => $_SESSION['auth']->getId()
+        ]);
 
     header('Location: /notes');
     exit();

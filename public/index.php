@@ -3,12 +3,19 @@
 use Core\Router;
 
 const BASE_PATH = __DIR__.'/../';
-function base_path($path): string { return BASE_PATH.$path; }
+require BASE_PATH.'models/Users.php';
+require BASE_PATH.'models/Notes.php';
+
+session_start();
+
 
 spl_autoload_register(function (string $class) {
     require str_replace('\\','/', base_path("{$class}.php"));
 });
-require base_path('functions.php');
+
+require BASE_PATH.'functions.php';
+
+require base_path('Database/Database.php');
 require base_path('bootstrap.php');
 
 $router = new Router();
