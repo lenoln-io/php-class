@@ -21,7 +21,9 @@ class Database
         try {
             $this->connection = new PDO("{$type}:{$dsn}", $config['auth']['username'], $config['auth']['password'], $options);
         } catch (PDOException $e) {
-            echo "Connection failed: " . $e->getMessage();
+            $exception = $e->getMessage();
+            view('errors/connection_failed', compact('exception'));
+            die();
         }
     }
 
