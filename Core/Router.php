@@ -52,9 +52,7 @@ class Router
         foreach ($this->routes as $route) {
             if ($route['uri'] === $uri && $route['method'] === $method) {
 
-                $config = require base_path('config.php');
-                $database = new Database($config);
-
+                $database = App::resolve(Database::class);
                 return require base_path($route['controller']);
             }
         }
